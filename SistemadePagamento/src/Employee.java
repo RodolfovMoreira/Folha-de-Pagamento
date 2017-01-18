@@ -80,14 +80,16 @@ public class Employee {
 			if(empregados[aux] == null){
 				empregados[aux] = nomedoempregado;
 				System.out.println("Empregado cadastrado com sucesso!\n\n");
+				break;
 			}else if(aux == 19){
 				System.out.println("Limite máximo de empregados atingido ! "
 						+ "Compre a versão PREMIUM para ter acesso a empregados ilimitados\n"
 						+ "Ou delete algum empregado.\n\n");
+				break;
 			}
 		}
 	}
-	public static void inserirendereço(String endereco[]){
+	public static void inserirendereco(String endereco[]){
 		
 		int aux;
 		Scanner input = new Scanner(System.in);
@@ -99,10 +101,12 @@ public class Employee {
 			if(endereco[aux] == null){
 				endereco[aux] = enderecodoempregado;
 				System.out.println("Endereço cadastrado com sucesso!\n\n");
+				break;
 			}else if(aux == 19){
 				System.out.println("Limite máximo de endereços atingido ! "
 						+ "Compre a versão PREMIUM para ter acesso ilimitado\n"
 						+ "Ou delete algum empregado.\n\n");
+				break;
 			}
 		}
 		
@@ -111,14 +115,62 @@ public class Employee {
 		
 		int aux;
 		Scanner input = new Scanner(System.in);
-		System.out.println("Selecione o tipo de funcionário:\n1- Assalariado | 2- Horista | 3- Comissionado\n Funcionário tipo: ");
+		System.out.print("Selecione o tipo de funcionário:\n1- Assalariado | 2- Horista | 3- Comissionado\n Funcionário tipo: ");
 		
 		int tipodigitado = input.nextInt();
 		
 		for(aux = 0; aux<20; aux++){
-			
+			if(tipos[aux] == 0){
+				tipos[aux] = tipodigitado;
+				System.out.println("Tipo cadastrado com sucesso!\n\n");
+				break;
+			}else if(aux == 19){
+				System.out.println("Limite máximo de tipos atingido ! "
+						+ "Compre a versão PREMIUM para ter acesso ilimitado\n"
+						+ "Ou delete algum empregado.\n\n");
+				break;
+			}
 		}
 		
+	}
+	public static void inserirsalario(double salariobase[]){
+		
+		int aux;
+		Scanner input = new Scanner(System.in);
+		System.out.print("Insira o salário base do funcionário: ");
+		
+		double salario = input.nextDouble();
+		
+		for(aux = 0; aux<20; aux++){
+			if(salariobase[aux] == 0.0){
+				salariobase[aux] = salario;
+				System.out.println("Salário cadastrado com sucesso!\n\n");
+				break;
+			}else if(aux == 19){
+				System.out.println("Limite máximo de salários atingido ! "
+						+ "Compre a versão PREMIUM para ter acesso ilimitado\n"
+						+ "Ou delete algum empregado.\n\n");
+				break;
+			}
+		}
+	}
+	
+	public static void adicionarfuncionario(String empregados[], String endereco[], int tipos[], double salario[]){
+		inserirnome(empregados);
+		inserirendereco(endereco);
+		inserirtipo(tipos);
+		inserirsalario(salario);
+		
+		System.out.println("Empregado cadastrado com sucesso !\n\n\n");
+	}
+	
+	public static void listarfuncionarios(String empregados[], String endereco[], int tipos[], double salario[]){
+		
+		int aux;
+		
+		for(aux=0;aux<20;aux++){
+			System.out.println(aux + ". " + empregados[aux] + " | Endereço: " + endereco[aux] + " | Tipo: " + tipos[aux] + " | Salário base: " + salario[aux]);
+		}
 	}
 	//-----------------------------------------------
 	
@@ -155,7 +207,7 @@ public class Employee {
 		while(comando != 0){
 			
 			System.out.println("Seja bem vindo!\nSelecione uma das opções abaixo:\n\n"
-					+ "1- Adição de empregados\n"
+					+ "1- Adição de empregados\n"                      //feito
 					+ "2- Remoção de empregados\n"
 					+ "3- Lançar cartão de ponto\n"
 					+ "4- Lançar resultado de venda\n"
@@ -165,18 +217,20 @@ public class Employee {
 					+ "8- Undo/Redo\n"
 					+ "9- Agenda de pagamento\n"
 					+ "10- Criação de novas agendas\n"
-					+ "11- Nomes dos empregados\n"
+					+ "11- Listar dos empregados\n"                    // feito
 					+ "0 - Para sair do programa\n\n");
 			
 			comando = input.nextInt();
 			
 			if(comando == 0){
+				System.out.println("Obrigado por utilizar o Sistema !");
 				break;
 			}
 			
 			switch(comando){
 				case 1:
-					System.out.println("Adição de empregados");
+					System.out.println("Sistema de adição de empregado:");
+					adicionarfuncionario(empregados,endereco,tipodeempregado,salariobase);
 					break;
 				
 				case 2:
@@ -218,7 +272,11 @@ public class Employee {
 					break;
 					
 				case 11:
-					System.out.println("Listagem dos empregados");
+					System.out.println("Listagem dos empregados:\n");
+					
+					listarfuncionarios(empregados, endereco, tipodeempregado, salariobase);
+					
+					System.out.println("\n");
 				
 				default:
 					System.out.println("Por favor, insira um comando válido!");
