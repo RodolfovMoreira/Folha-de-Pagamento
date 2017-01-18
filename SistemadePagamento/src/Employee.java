@@ -74,7 +74,7 @@ public class Employee {
 		Scanner input = new Scanner(System.in);
 		
 		System.out.print("Digite o nome do empregado: ");
-		String nomedoempregado = input.next();
+		String nomedoempregado = input.nextLine();
 		
 		for(aux = 0; aux<20; aux++){
 			if(empregados[aux] == null){
@@ -95,7 +95,7 @@ public class Employee {
 		Scanner input = new Scanner(System.in);
 		
 		System.out.print("Digite o endereço do empregado: ");
-		String enderecodoempregado = input.next();
+		String enderecodoempregado = input.nextLine();
 		
 		for(aux = 0; aux<20; aux++){
 			if(endereco[aux] == null){
@@ -169,7 +169,12 @@ public class Employee {
 		int aux;
 		
 		for(aux=0;aux<20;aux++){
-			System.out.println(aux + ". " + empregados[aux] + " | Endereço: " + endereco[aux] + " | Tipo: " + tipos[aux] + " | Salário base: " + salario[aux]);
+			if(empregados[aux] == null){
+				System.out.println(aux + " Empregados cadastrados.");
+				break;
+			}else{
+				System.out.println(aux + ". " + empregados[aux] + " | Endereço: " + endereco[aux] + " | Tipo: " + tipos[aux] + " | Salário base: " + salario[aux]);
+			}
 		}
 	}
 	//-----------------------------------------------
