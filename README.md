@@ -6,9 +6,9 @@ Repositório destinado para o 1º Projeto da matéria "Projeto de Software" que 
 FUNCIONALIDADES:
 
 
-1 - Adição de empregado - feito
+1 - Adição de empregado - FEITO
 
-2 - Remoção de empregado
+2 - Remoção de empregado - FEITO
 
 3 - Lançar um cartão de ponto
 
