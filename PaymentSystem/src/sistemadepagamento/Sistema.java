@@ -78,11 +78,44 @@ public class Sistema {
 		for(aux = 0; aux<20; aux++){
 			if(trabalhadores[aux] != null){
 				fulano = trabalhadores[aux];
-				System.out.println("ID: " + aux + " Nome: " + fulano.nome + " Endereço: " + fulano.adress + " Tipo: " + fulano.type + " Salário: " + fulano.salario + "\n");
+				System.out.println("ID: " + aux + " Nome: " + fulano.nome + " Endereço: " + fulano.adress + " Tipo: " + fulano.type + " Salário: " + fulano.salario);
 			}
 		}
 	}
 	// ---------------------------------------------------------------------
+	
+	//------------------ Remoção de Funcionário ----------------------------
+	
+	public static void listarIDs(Empregado[] trabalhadores){
+		
+		int aux;
+		Empregado fulano = new Empregado();
+		
+		System.out.println("Lista de ID's: \n");
+		
+		for(aux = 0; aux<20; aux++){
+			if(trabalhadores[aux] != null){
+				fulano = trabalhadores[aux];
+				System.out.println("ID: " + aux + " Nome: " + fulano.nome);
+			}
+		}
+	}
+	public static void deletarFuncionario(Empregado[] trabalhadores){
+		
+		Scanner input = new Scanner(System.in);
+		int id;
+		
+		listarIDs(trabalhadores);
+		System.out.println("Digite a ID do funcionário: ");
+		
+		id = input.nextInt();
+		
+		trabalhadores[id] = null;
+		System.out.println("Funcionário removido.\n");
+	}
+	// ---------------------------------------------------------------------
+	
+	
 	
 	public static void main(String[] args) {
 		
@@ -97,7 +130,7 @@ public class Sistema {
 			
 			System.out.println("Seja bem vindo!\nSelecione uma das opções abaixo:\n\n"
 					+ "1- Adição de empregados\n"          // feito           
-					+ "2- Remoção de empregados\n"
+					+ "2- Remoção de empregados\n"		   // feito
 					+ "3- Lançar cartão de ponto\n"
 					+ "4- Lançar resultado de venda\n"
 					+ "5- Lançar taxa de serviço\n"
@@ -123,7 +156,8 @@ public class Sistema {
 					break;
 				
 				case 2:
-					System.out.println("Remoção de empregados");
+					System.out.println("Remoção de empregados-\n");
+					deletarFuncionario(trabalhadores);
 					break;
 					
 				case 3:
@@ -159,7 +193,6 @@ public class Sistema {
 					break;
 					
 				case 11:
-					System.out.println("Listagem dos empregados:\n");
 					listarFuncionarios(trabalhadores);
 					break;
 				
