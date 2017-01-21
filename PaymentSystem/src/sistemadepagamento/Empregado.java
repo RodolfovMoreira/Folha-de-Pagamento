@@ -6,4 +6,8 @@ public class Empregado {
 	String adress = new String();
 	int type;
 	double salario;
+    int horassemana;
+    int horasextras;
+    double vendasacumuladas;
+    double taxadeservico;
 }

@@ -10,28 +10,24 @@ public class Sistema {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Digite o nome do empregado: ");
 		fulano.nome = input.nextLine();
-		System.out.println(" ");
 	}
 	public static void inserirEndereco(Empregado fulano){
 		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Digite o endereço do empregado: ");
 		fulano.adress = input.nextLine();
-		System.out.println(" ");
 	}
 	public static void inserirTipo(Empregado fulano){
 	
 		Scanner input = new Scanner(System.in);
 		System.out.print("Selecione o tipo de funcionário:\n\t1- Assalariado | 2- Horista | 3- Comissionado\n Funcionário tipo: ");
 		fulano.type = input.nextInt();
-		System.out.println(" ");
 	}
 	public static void inserirSalario(Empregado fulano){
 		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Digite o salário do empregado: ");
 		fulano.salario = input.nextDouble();
-		System.out.println(" ");
 	}
 
 	public static int posicaoNovoFuncionario(Empregado[] trabalhadores){
@@ -91,7 +87,7 @@ public class Sistema {
 		int aux;
 		Empregado fulano = new Empregado();
 		
-		System.out.println("Lista de ID's: \n");
+		System.out.println("Lista de ID's: ");
 		
 		for(aux = 0; aux<20; aux++){
 			if(trabalhadores[aux] != null){
@@ -99,6 +95,7 @@ public class Sistema {
 				System.out.println("ID: " + aux + " Nome: " + fulano.nome);
 			}
 		}
+		System.out.println(" ");
 	}
 	public static void deletarFuncionario(Empregado[] trabalhadores){
 		
@@ -115,6 +112,141 @@ public class Sistema {
 	}
 	// ---------------------------------------------------------------------
 	
+    //----------------- Lançamento de Cartão de Ponto -----------------------
+        
+    public static void listarIDsHoristas(Empregado[] trabalhadores){
+		
+		int aux;
+		Empregado fulano = new Empregado();
+		
+		System.out.println("Lista de ID's: ");
+		
+		for(aux = 0; aux<20; aux++){
+			if(trabalhadores[aux] != null){
+				fulano = trabalhadores[aux];
+                                if(fulano.type == 2)
+				System.out.println("ID: " + aux + " Nome: " + fulano.nome);
+			}
+		}
+		System.out.println(" ");
+	}
+    public static void inserirHora(Empregado[] trabalhadores){
+            
+            Scanner input = new Scanner(System.in);
+            int id,horas;
+            int h_semana;
+            int h_extra;
+            
+		
+            listarIDsHoristas(trabalhadores);
+            System.out.print("Digite a ID do funcionário que irá submeter o cartão de ponto: ");
+            
+            id = input.nextInt();
+            
+            Empregado fulano = trabalhadores[id];
+            h_extra = fulano.horasextras;
+            h_semana = fulano.horassemana;
+            
+           System.out.print("Digite as horas pagas: "); 
+          
+           horas = input.nextInt();
+           
+           h_semana = h_semana+horas;
+           h_extra = h_extra + (horas-8);
+          
+           if(horas <= 8){ 
+               fulano.horassemana= h_semana; 
+           }else{
+               h_semana = fulano.horassemana;
+               fulano.horassemana = h_semana + 8;
+               fulano.horasextras = h_extra;
+           }
+           listarHorasPagas(trabalhadores,id);
+           System.out.println("\nHoras adicionadas com sucesso !");
+        }
+    public static void listarHorasPagas(Empregado[] trabalhadores, int id){
+		
+            Empregado fulano = new Empregado();
+			
+            fulano = trabalhadores[id];
+            System.out.println("Empregado: " + fulano.nome + " | Horas: " + fulano.horassemana + " | Horas extras: " + fulano.horasextras);			
+	}
+        
+    //-----------------------------------------------------------------------
+    
+    //---------------- Lançamento de Resultado de Venda ---------------------
+    
+    public static void listarIDsComissionados(Empregado[] trabalhadores){
+		
+		int aux;
+		Empregado fulano = new Empregado();
+		
+		System.out.println("Lista de ID's: ");
+		
+		for(aux = 0; aux<20; aux++){
+			if(trabalhadores[aux] != null){
+				fulano = trabalhadores[aux];
+                                if(fulano.type == 3)
+				System.out.println("ID: " + aux + " Nome: " + fulano.nome);
+			}
+		}
+		System.out.println(" ");
+	}
+    
+    public static void lancarResultadoVenda(Empregado[] trabalhadores){
+
+        Scanner input = new Scanner(System.in);
+        int ID, data;
+        double valor, aux;
+        
+        listarIDsComissionados(trabalhadores);
+        System.out.print("Digite o ID do funcionário em que deseja lançar uma venda: ");
+        
+        ID = input.nextInt();
+        Empregado fulano = trabalhadores[ID];
+        
+        System.out.print("Digite o valor da venda: ");
+        valor = input.nextDouble();
+         
+        System.out.print("Digite o dia da venda: ");
+        data = input.nextInt();
+        
+        aux = fulano.vendasacumuladas;
+        aux = aux + valor;
+        
+        fulano.vendasacumuladas = aux;
+        
+        System.out.println("O valor acumulado agora é: " + aux);
+    }
+    
+    //-----------------------------------------------------------------------
+    
+    //---------------- Lançar Taxa de Serviço ------------------------------
+  
+    public static void inserirTaxaServico(Empregado[] trabalhadores){
+    	
+        Scanner input = new Scanner(System.in);
+        int ID;
+        double taxa;
+        
+        listarIDsComissionados(trabalhadores);
+        System.out.print("Digite o ID do funcionário em que deseja lançar uma taxa de serviço: ");
+        
+        ID = input.nextInt();
+        
+        Empregado fulano = trabalhadores[ID];
+        
+        System.out.print("Digite o valor da taxa: ");
+        
+        taxa = input.nextDouble();
+        fulano.taxadeservico = taxa;
+        
+        System.out.println("A taxa de serviço do empregado " + fulano.nome + " agora é " + fulano.taxadeservico);
+    }
+    
+    //-----------------------------------------------------------------------
+    
+    
 	
 	
 	public static void main(String[] args) {
@@ -128,19 +260,21 @@ public class Sistema {
 		
 		while(comando != 0){
 			
-			System.out.println("Seja bem vindo!\nSelecione uma das opções abaixo:\n\n"
+			System.out.println("----------------------------------------------------\n"
+                                + "Seja bem vindo!\nSelecione uma das opções abaixo:\n\n"
 					+ "1- Adição de empregados\n"          // feito           
 					+ "2- Remoção de empregados\n"		   // feito
-					+ "3- Lançar cartão de ponto\n"
-					+ "4- Lançar resultado de venda\n"
-					+ "5- Lançar taxa de serviço\n"
+					+ "3- Lançar cartão de ponto\n"        // feito
+					+ "4- Lançar resultado de venda\n"     // feito
+					+ "5- Lançar taxa de serviço\n"		   // feito
 					+ "6- Alterar detalher de empregado\n"
 					+ "7- Rodar folha de pagamento\n"
 					+ "8- Undo/Redo\n"
 					+ "9- Agenda de pagamento\n"
 					+ "10- Criação de novas agendas\n"
 					+ "11- Listar dos empregados\n"         // feito    
-					+ "0 - Para sair do programa\n\n");
+					+ "0 - Para sair do programa\n"         // feito
+                                + "----------------------------------------------------\n\n");
 			
 			comando = input.nextInt();
 			
@@ -161,15 +295,18 @@ public class Sistema {
 					break;
 					
 				case 3:
-					System.out.println("Lançar cartão de ponto");
+					System.out.println("Lançar cartão de ponto-");
+                    inserirHora(trabalhadores);
 					break;
 				
 				case 4:
-					System.out.println("Lançar resultado de venda");
+					System.out.println("Lançar resultado de venda-");
+					lancarResultadoVenda(trabalhadores);
 					break;
 					
 				case 5:
 					System.out.println("Lançar taxa de venda");
+					inserirTaxaServico(trabalhadores);
 					break;
 				
 				case 6:
