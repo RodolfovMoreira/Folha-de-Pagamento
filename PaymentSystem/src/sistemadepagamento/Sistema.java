@@ -308,28 +308,36 @@ public class Sistema {
     public static void alterarIDSindicato(Empregado fulano, int ID, Empregado[] trabalhadores){
     	
     	Scanner input = new Scanner(System.in);
-        Empregado sicrano;
-    	int novoid, aux, confere;
+        Empregado sicrano = new Empregado();
+    	int novoid, aux, confere,check;
         
         System.out.print("---------------------------------\nDigite o novo ID do Sindicato que deseja: ");
         
         novoid = input.nextInt();
         
+        check = 10;
+        
         for(aux = 0; aux < 20; aux++){
-        	sicrano = trabalhadores[aux];
-        	confere = sicrano.idsindicato;
-        	
-        	if(confere == novoid){
-        		System.out.println("Este ID ja está sendo usado por outro empregado!\n---------------------------------");
-        		break;
-        	}else if(aux == 19){
-        		fulano.idsindicato = novoid;
-                System.out.println("Alteraçao feita com sucesso!\n---------------------------------");
-        		break;
+        	if(trabalhadores[aux] != null){
+            	sicrano = trabalhadores[aux];
+            	confere = sicrano.idsindicato;
+            	
+            	if(confere == novoid){
+            		System.out.println("Este ID ja está sendo usado por outro empregado!\n---------------------------------");
+            		check = 1;
+            		break;
+            	}else if(aux == 19){
+            		fulano.idsindicato = novoid;
+                    System.out.println("Alteraçao feita com sucesso!\n---------------------------------");
+            		break;
+            	}	
         	}
         }
+        if((aux != 19)&&(check == 10)){
+        	fulano.idsindicato = novoid;
+        	 System.out.println("Novo ID : "+ fulano.idsindicato +"\nAlteraçao feita com sucesso!\n---------------------------------");
+        }
         
-        System.out.println("Endereço alterado com sucesso!\n---------------------------------");
     }
     public static void alterarTaxaSindical(Empregado fulano, int ID){
     	
@@ -435,7 +443,7 @@ public class Sistema {
 					+ "3- Lançar cartão de ponto\n"        // feito
 					+ "4- Lançar resultado de venda\n"     // feito
 					+ "5- Lançar taxa de serviço\n"		   // feito
-					+ "6- Alterar detalher de empregado\n" 
+					+ "6- Alterar detalher de empregado\n" // feito
 					+ "7- Rodar folha de pagamento\n"
 					+ "8- Undo/Redo\n"
 					+ "9- Agenda de pagamento\n"
