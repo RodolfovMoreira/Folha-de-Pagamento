@@ -18,10 +18,11 @@ public class Sistema {
 		fulano.adress = input.nextLine();
 	}
 	public static void inserirTipo(Empregado fulano){
-	
+		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Selecione o tipo de funcionário:\n\t1- Assalariado | 2- Horista | 3- Comissionado\n Funcionário tipo: ");
 		fulano.type = input.nextInt();
+		fulano.metodopagamento = 3;
 	}
 	public static void inserirSalario(Empregado fulano){
 		
@@ -58,6 +59,7 @@ public class Sistema {
 			inserirEndereco(fulano);
 			inserirTipo(fulano);
 			inserirSalario(fulano);
+			fulano.idsindicato = posicao;
 			
 			trabalhadores[posicao] = fulano;
 			System.out.println("\nFuncionário cadastrado com sucesso !\n\n");
@@ -246,7 +248,173 @@ public class Sistema {
     
     //-----------------------------------------------------------------------
     
+    //--------------- Alterar detalhes do Empregado -------------------------
     
+    public static void alterarNome(Empregado fulano, int ID){
+        
+    	Scanner input = new Scanner(System.in);
+        String nome;
+        
+        System.out.print("---------------------------------\nDigite o nome correto do empregado: ");
+        
+        nome = input.nextLine();
+        fulano.nome = nome;
+        System.out.println("Nome alterado com sucesso!\n---------------------------------");
+    }
+    public static void alterarEndereco(Empregado fulano, int ID){
+    	
+    	Scanner input = new Scanner(System.in);
+        String endereco;
+        
+        System.out.print("---------------------------------\nDigite o endereço correto do empregado: ");
+        
+        endereco = input.nextLine();
+        fulano.adress = endereco;
+        System.out.println("Endereço alterado com sucesso!\n---------------------------------");
+    }
+    public static void alterarTipo(Empregado fulano, int ID){
+    	
+    	Scanner input = new Scanner(System.in);
+        int tipo;
+        
+        System.out.print("---------------------------------\nDigite o tipo correto do empregado. (1- Assalariado | 2- Horista | 3- Comissionado)\nTipo: ");
+        
+        tipo = input.nextInt();
+        fulano.type = tipo;
+        System.out.println("Tipo alterado com sucesso!\n---------------------------------");
+    }
+    public static void alterarMetodoPagamento(Empregado fulano, int ID){
+    	
+    	Scanner input = new Scanner(System.in);
+        int metodo;
+        
+        System.out.print("---------------------------------\nDigite o novo método de pagamento do empregado:  "
+        		+ "(1- Cheque por Correios | 2- Cheque em Mãos | 3- Depósito em Conta)\n"
+        		+ "Método: ");
+        
+        metodo = input.nextInt();
+        fulano.metodopagamento = metodo;
+        System.out.println("Método de pagamento alterado com sucesso!\n---------------------------------");
+    }
+    public static void alterarPertenceSindicato(Empregado fulano, int ID){
+    	
+    	Scanner input = new Scanner(System.in);
+        
+        System.out.print("---------------------------------\nDigite '1' se faz parte do Sindicato ou '0' se não faz parte: ");
+        
+        fulano.pertencesindicato = input.nextInt();
+        System.out.println("Alteraçao feita com sucesso!\n---------------------------------");
+    }
+    public static void alterarIDSindicato(Empregado fulano, int ID, Empregado[] trabalhadores){
+    	
+    	Scanner input = new Scanner(System.in);
+        Empregado sicrano;
+    	int novoid, aux, confere;
+        
+        System.out.print("---------------------------------\nDigite o novo ID do Sindicato que deseja: ");
+        
+        novoid = input.nextInt();
+        
+        for(aux = 0; aux < 20; aux++){
+        	sicrano = trabalhadores[aux];
+        	confere = sicrano.idsindicato;
+        	
+        	if(confere == novoid){
+        		System.out.println("Este ID ja está sendo usado por outro empregado!\n---------------------------------");
+        		break;
+        	}else if(aux == 19){
+        		fulano.idsindicato = novoid;
+                System.out.println("Alteraçao feita com sucesso!\n---------------------------------");
+        		break;
+        	}
+        }
+        
+        System.out.println("Endereço alterado com sucesso!\n---------------------------------");
+    }
+    public static void alterarTaxaSindical(Empregado fulano, int ID){
+    	
+    	Scanner input = new Scanner(System.in);
+        double taxa;
+        
+        System.out.print("---------------------------------\nDigite a taxa sindical correta: ");
+        
+        taxa = input.nextDouble();
+        fulano.taxasindical = taxa;
+        System.out.println("Taxa sindical alterada com sucesso!\n---------------------------------");
+    }
+    
+    public static void alterarDadosdoEmpregado(Empregado[] trabalhadores){
+    	
+    	Scanner input = new Scanner(System.in);
+        int ID, comando;
+        Empregado fulano;
+        
+        listarIDs(trabalhadores);
+        System.out.print("\nDigite o ID do funcionário no qual deseja alterar algum dado: ");
+        
+        ID = input.nextInt();
+        fulano = trabalhadores[ID];
+        comando = 1;
+        
+        while(comando != 0){
+            System.out.println("-----------------------------------------------------------\n"
+            		+ "Selecione o dado que deseja alterar de: "+ fulano.nome +"\n" 
+            		+ "1 - Nome\n"
+            		+ "2 - Endereço\n"
+            		+ "3 - Tipo\n"
+            		+ "4 - Método de Pagamento\n"
+            		+ "5 - Participação no Sindicato\n"
+            		+ "6 - ID do Sindicato\n"
+            		+ "7 - Taxa Sindical\n"
+            		+ "0 - Para voltar ao Menu Principal\n"
+            		+ "-----------------------------------------------------------\n");
+            
+            comando = input.nextInt();
+            
+            if(comando == 0){
+            	System.out.println("\n\n\n\n");
+            	break;
+            }
+            
+            switch(comando){
+            	case 1:
+            		alterarNome(fulano,ID);
+            		break;
+            		
+            	case 2:
+            		alterarEndereco(fulano,ID);
+            		break;
+            	
+            	case 3:
+            		alterarTipo(fulano,ID);
+            		break;
+            		
+            	case 4:
+            		alterarMetodoPagamento(fulano,ID);
+            		break;
+            		
+            	case 5:
+            		alterarPertenceSindicato(fulano,ID);
+            		break;
+            		
+            	case 6:
+            		alterarIDSindicato(fulano,ID,trabalhadores);
+            		break;
+            		
+            	case 7:
+            		alterarTaxaSindical(fulano,ID);
+            		break;
+            		
+            	default:
+					System.out.println("Por favor, insira um comando válido!");
+					break;
+            }
+            
+        }
+        
+    }
+    
+    //-----------------------------------------------------------------------
 	
 	
 	public static void main(String[] args) {
@@ -267,14 +435,14 @@ public class Sistema {
 					+ "3- Lançar cartão de ponto\n"        // feito
 					+ "4- Lançar resultado de venda\n"     // feito
 					+ "5- Lançar taxa de serviço\n"		   // feito
-					+ "6- Alterar detalher de empregado\n"
+					+ "6- Alterar detalher de empregado\n" 
 					+ "7- Rodar folha de pagamento\n"
 					+ "8- Undo/Redo\n"
 					+ "9- Agenda de pagamento\n"
 					+ "10- Criação de novas agendas\n"
 					+ "11- Listar dos empregados\n"         // feito    
 					+ "0 - Para sair do programa\n"         // feito
-                                + "----------------------------------------------------\n\n");
+                                + "----------------------------------------------------\n\n\n\n\n\n\n\n\n\n\n");
 			
 			comando = input.nextInt();
 			
@@ -311,6 +479,7 @@ public class Sistema {
 				
 				case 6:
 					System.out.println("Alterar detalhes de um empregado");
+					alterarDadosdoEmpregado(trabalhadores);
 					break;
 					
 				case 7:

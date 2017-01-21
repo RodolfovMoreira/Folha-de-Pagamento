@@ -10,4 +10,8 @@ public class Empregado {
     int horasextras;
     double vendasacumuladas;
     double taxadeservico;
+    int pertencesindicato;
+    int idsindicato;
+    double taxasindical;
+    int metodopagamento;
 }
