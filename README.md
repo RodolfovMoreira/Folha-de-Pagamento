@@ -10,11 +10,11 @@ FUNCIONALIDADES:
 
 2 - Remoção de empregado - FEITO
 
-3 - Lançar um cartão de ponto
+3 - Lançar um cartão de ponto - FEITO
 
-4 - Lançar um resultado de venda
+4 - Lançar um resultado de venda - FEITO
 
-5 - Lançar uma taxa de serviço
+5 - Lançar uma taxa de serviço - FEITO
 
 6 - Alterar detalhes de um empregado
 
