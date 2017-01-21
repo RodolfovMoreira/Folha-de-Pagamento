@@ -16,7 +16,7 @@ FUNCIONALIDADES:
 
 5 - Lançar uma taxa de serviço - FEITO
 
-6 - Alterar detalhes de um empregado
+6 - Alterar detalhes de um empregado - FEITO
 
 7 - Rodar folha de pagamento para hoje
 
