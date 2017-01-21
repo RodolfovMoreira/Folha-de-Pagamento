@@ -20,7 +20,7 @@ FUNCIONALIDADES:
 
 7 - Rodar folha de pagamento para hoje
 
-8 - Undo/Redo
+8 - Undo/Redo - FEITO
 
 9 - Agenda de Pagamento
 
