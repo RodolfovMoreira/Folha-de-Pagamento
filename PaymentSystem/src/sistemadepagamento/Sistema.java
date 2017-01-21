@@ -423,10 +423,61 @@ public class Sistema {
     }
     
     //-----------------------------------------------------------------------
+    
+    //----------------------Undo/Redo----------------------------------------
+    
+    public static void saveUndoRedo(Empregado[] trabalhadores, Empregado[] undoredo){
+    	
+    	int aux;
+    	
+    	for(aux = 0;aux < 20; aux++){
+    		//if(trabalhadores[aux] != null){
+    			undoredo[aux] = trabalhadores[aux];
+    		//}
+    	}
+    }
+    
+    public static void useUndoRedo(Empregado[] trabalhadores, Empregado[] undoredo){
+    	
+    	int aux;
+    	
+    	for(aux = 0;aux < 20; aux++){
+    		//if(undoredo[aux] != null){
+    			trabalhadores[aux] = undoredo[aux];
+    		//}
+    	}
+    }
+    
+    public static void selectionUndoRedo(Empregado[] trabalhadores,Empregado[] undo, Empregado[] redo){
+    	
+    	Scanner input = new Scanner(System.in);
+    	int selecao;
+    	
+    	System.out.print("---------------------------------\nSelecione uma das opções:\n"
+    			+ "1 - Undo\n"
+    			+ "2 - Redo\n---------------------------------\n");
+    	
+    	selecao = input.nextInt();
+    	
+    	if(selecao == 1){
+    		useUndoRedo(trabalhadores,undo);
+    		System.out.println("UNDO foi um sucesso!");
+    	}else if(selecao == 2){
+    		useUndoRedo(trabalhadores,redo);
+    		System.out.println("REDO foi um sucesso!");
+    	}else{
+    		System.out.println("Digite um comando válido!.");
+    	}
+    	
+    }
+    
+    //-----------------------------------------------------------------------
 	
 	
 	public static void main(String[] args) {
 		
+		Empregado[] redo = new Empregado[20];
+		Empregado[] undo = new Empregado[20];
 		Empregado[] trabalhadores = new Empregado[20]; //Empty vector of objects - NULL by DEFAULT
 		
 		//---------------------- INTERFACE ---------------------------
@@ -445,11 +496,11 @@ public class Sistema {
 					+ "5- Lançar taxa de serviço\n"		   // feito
 					+ "6- Alterar detalher de empregado\n" // feito
 					+ "7- Rodar folha de pagamento\n"
-					+ "8- Undo/Redo\n"
+					+ "8- Undo/Redo\n"					   // feito
 					+ "9- Agenda de pagamento\n"
 					+ "10- Criação de novas agendas\n"
-					+ "11- Listar dos empregados\n"         // feito    
-					+ "0 - Para sair do programa\n"         // feito
+					+ "11- Listar dos empregados\n"        // feito    
+					+ "0 - Para sair do programa\n"        // feito
                                 + "----------------------------------------------------\n\n\n\n\n\n\n\n\n\n\n");
 			
 			comando = input.nextInt();
@@ -462,40 +513,55 @@ public class Sistema {
 			switch(comando){
 				case 1:
 					System.out.println("Sistema de adição de empregado - \n");
+					saveUndoRedo(trabalhadores,undo);
 					adicionarFuncionario(trabalhadores);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 				
 				case 2:
 					System.out.println("Remoção de empregados-\n");
+					saveUndoRedo(trabalhadores,undo);
 					deletarFuncionario(trabalhadores);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 					
 				case 3:
+					saveUndoRedo(trabalhadores,undo);
 					System.out.println("Lançar cartão de ponto-");
                     inserirHora(trabalhadores);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 				
 				case 4:
 					System.out.println("Lançar resultado de venda-");
+					saveUndoRedo(trabalhadores,undo);
 					lancarResultadoVenda(trabalhadores);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 					
 				case 5:
 					System.out.println("Lançar taxa de venda");
+					saveUndoRedo(trabalhadores,undo);
 					inserirTaxaServico(trabalhadores);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 				
 				case 6:
 					System.out.println("Alterar detalhes de um empregado");
+					saveUndoRedo(trabalhadores,undo);
 					alterarDadosdoEmpregado(trabalhadores);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 					
 				case 7:
 					System.out.println("Rodar folha de pagamento");
+					saveUndoRedo(trabalhadores,undo);
+					saveUndoRedo(trabalhadores,redo);
 					break;
 					
 				case 8:
 					System.out.println("Undo/Redo");
+					selectionUndoRedo(trabalhadores,undo,redo);
 					break;
 					
 				case 9:
