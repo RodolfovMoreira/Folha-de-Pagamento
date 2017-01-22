@@ -24,4 +24,4 @@ FUNCIONALIDADES:
 
 9 - Agenda de Pagamento - FEITO
 
-10 - Criação de novas agendas de pagamento
+10 - Criação de novas agendas de pagamento - FEITO
