@@ -22,6 +22,6 @@ FUNCIONALIDADES:
 
 8 - Undo/Redo - FEITO
 
-9 - Agenda de Pagamento
+9 - Agenda de Pagamento - FEITO
 
 10 - Criação de novas agendas de pagamento
