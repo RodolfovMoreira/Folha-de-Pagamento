@@ -4,7 +4,7 @@ public class Empregado {
 	
 	String nome = new String();
 	String adress = new String();
-	int type;    // 1- Assalariado 2- Horista 3-Comissionado
+	int type; // 1- Assalariado 2- Horista 3-Comissionado
 	double salario;
     int horassemana;
     int horasextras;

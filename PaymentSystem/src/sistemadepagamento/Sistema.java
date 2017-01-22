@@ -583,9 +583,68 @@ public class Sistema {
     	System.out.println("---------------------------------");
     }
     
-    //-----------------------------------------------------------------------    
+    //-----------------------------------------------------------------------
     
-	
+    //---------------- Criação de Novas Agendas de Pagamento ----------------
+    
+    public static void alterarAgenda(Empregado[] trabalhadores){
+    	
+    	Scanner input = new Scanner(System.in);
+    	int ID, tipo, escolha;
+    	Empregado fulano = new Empregado();
+    	
+    	listarIDs(trabalhadores);
+
+    	System.out.print("---------------------------------\nDigite o ID do funcionário no qual deseja alterar a agenda: ");
+    	
+    	ID = input.nextInt();
+    	
+    	fulano = trabalhadores[ID];
+    	tipo = fulano.type;
+    	
+    	if(tipo == 1){
+			System.out.println("\n\nEscolha um dos números abaixo para ser o novo dia de pagamento:\n3,4,5,6,10,11,12,13,17,18,19,20,24,25,26,27 ou 30\nDia: ");
+			escolha = input.nextInt();
+			fulano.diadepagamento = escolha;
+			System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+		}else if(tipo == 2){
+			System.out.println("\n\nEscolha uma das opções abaixo para ser os novos dias de pagamento:\n1- Dias: 6,13,20 e 27\n2- Dias: 3, 10, 17 e 24\n3- Dias: 4, 11, 18 e 25\n"
+					+ "4- Dias: 5, 12, 19 e 26\n\nEscolha: ");
+			escolha = input.nextInt();
+			
+			if(escolha == 1){
+				fulano.diadepagamento = 6;
+				System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+			}else if(escolha == 2){
+				fulano.diadepagamento = 3;
+				System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+			}else if(escolha == 3){
+				fulano.diadepagamento = 4;
+				System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+			}else if(escolha == 4){
+				fulano.diadepagamento = 5;
+				System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+			}else{
+				System.out.println("ERRO! Na próxima vez selecione um número certo!");
+			}
+		}else{
+			System.out.println("\n\nEscolha um dos números abaixo para ser o novo dia de pagamento:\n1- Dias: 13 e 27\n2- Dias: 6 e 20\nEscolha: ");
+			escolha = input.nextInt();
+			
+			if(escolha == 1){
+				fulano.diadepagamento = 13;
+				System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+			}else if(escolha == 2){
+				fulano.diadepagamento = 6;
+				System.out.println("Dia de pagamento alterado com sucesso!\n---------------------------------");
+			}else{
+				System.out.println("ERRO! Na próxima vez selecione um número certo!");
+			}
+		}
+    }
+    
+    //-----------------------------------------------------------------------
+    
 	
 	public static void main(String[] args) {
 		
@@ -622,7 +681,7 @@ public class Sistema {
 					+ "7- Rodar folha de pagamento\n"
 					+ "8- Undo/Redo\n"					   // feito
 					+ "9- Agenda de pagamento\n"		   // feito
-					+ "10- Criação de novas agendas\n"
+					+ "10- Criação de novas agendas\n"	   // feito
 					+ "11- Listar dos empregados\n"        // feito    
 					+ "0 - Para sair do programa\n"        // feito
                                 + "----------------------------------------------------\n\n\n\n\n\n\n\n\n\n\n");
@@ -695,6 +754,7 @@ public class Sistema {
 					
 				case 10:
 					System.out.println("Criação de novas agendas");
+					alterarAgenda(trabalhadores);
 					break;
 					
 				case 11:
