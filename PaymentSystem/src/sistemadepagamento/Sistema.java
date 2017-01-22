@@ -19,10 +19,23 @@ public class Sistema {
 	}
 	public static void inserirTipo(Empregado fulano){
 		
+		int tipo;
 		Scanner input = new Scanner(System.in);
 		System.out.print("Selecione o tipo de funcionário:\n\t1- Assalariado | 2- Horista | 3- Comissionado\n Funcionário tipo: ");
-		fulano.type = input.nextInt();
-		fulano.metodopagamento = 3;
+		tipo = input.nextInt();
+		fulano.type = tipo;
+		fulano.metodopagamento = 3; // Por default todos recebem depósito bancário
+		
+		if(tipo == 1){
+			fulano.tipodepagamento = 1;
+			fulano.diadepagamento = 30;
+		}else if(tipo == 2){
+			fulano.tipodepagamento = 2;
+			fulano.diadepagamento = 6;
+		}else{
+			fulano.tipodepagamento = 3;
+			fulano.diadepagamento = 13;
+		}
 	}
 	public static void inserirSalario(Empregado fulano){
 		
@@ -472,6 +485,106 @@ public class Sistema {
     }
     
     //-----------------------------------------------------------------------
+    
+    //----------------- Agenda de Pagamento ---------------------------------
+    
+    public static int consultarMensal(Empregado fulano){
+    	
+    	int retorno = 0;
+    	int aux;
+    	int[] alt_mensalmente = {3,4,5,6,10,11,12,13,17,18,19,20,24,25,26,27,30}; // 17 pos
+    	
+    	for(aux=0;aux<17;aux++){
+    		if(alt_mensalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+    			break;
+    		}
+    	}
+   
+    	return retorno;
+    }
+    public static int consultarSemanal(Empregado fulano){
+    	
+    	int retorno = 0;
+    	int aux;
+    	
+		int[] semanalmente = {6,13,20,27}; // 4 pos
+		int[] alt_semanalmente = {3,10,17,24}; // 4 pos
+		int[] alt1_semanalmente = {4,11,18,25}; // 4 pos
+		int[] alt2_semanalmente = {5,12,19,26}; // 4 pos
+		
+    	for(aux=0;aux<4;aux++){
+    		if(semanalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+				System.out.println(semanalmente[0] + ", " + semanalmente[1] + ", " + semanalmente[2] + ", " + semanalmente[3] + "!");
+    			break;
+    		}else if(alt_semanalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+    				System.out.println(alt_semanalmente[0] + ", " + alt_semanalmente[1] + ", " + alt_semanalmente[2] + ", " + alt_semanalmente[3] + "!");
+    			break;
+    		}else if(alt1_semanalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+				System.out.println(alt1_semanalmente[0] + ", " + alt1_semanalmente[1] + ", " + alt1_semanalmente[2] + ", " + alt1_semanalmente[3] + "!");
+    			break;
+    		}else if(alt2_semanalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+				System.out.println(alt2_semanalmente[0] + ", " + alt2_semanalmente[1] + ", " + alt2_semanalmente[2] + ", " + alt2_semanalmente[3] + "!");
+    			break;
+    		}
+    	}
+   
+    	return retorno;
+    }
+    public static int consultarBiMensal(Empregado fulano){
+    	
+    	int retorno = 0;
+    	int aux;
+		int[] bisemanalmente = {13, 27};  // 2 pos
+		int[] alt_bisemanalmente = {6,20}; // 2 pos
+		
+    	for(aux=0;aux<2;aux++){
+    		if(bisemanalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+				System.out.println(bisemanalmente[0] + ", " + bisemanalmente[1] + "!");
+    			break;
+    		}else if(alt_bisemanalmente[aux] == fulano.diadepagamento){
+    			retorno = 1;
+				System.out.println(alt_bisemanalmente[0] + ", " + alt_bisemanalmente[1] + "!");
+    			break;
+    		}
+    	}
+   
+    	return retorno;
+    }
+    
+    public static void consultarAgenda(Empregado[] trabalhadores){
+    	
+    	Scanner input = new Scanner(System.in);
+    	int ID;
+    	Empregado fulano = new Empregado();
+    	
+    	listarIDs(trabalhadores);
+
+    	System.out.print("---------------------------------\nDigite o ID do funcionário no qual deseja consultar a agenda: ");
+    	
+    	ID = input.nextInt();
+    	
+    	fulano = trabalhadores[ID];
+    	
+    	if(fulano.tipodepagamento == 1){
+    		System.out.println("O dia de pagamento de " + fulano.nome + " é todo dia " + fulano.diadepagamento + "!");
+    	}else if(fulano.tipodepagamento == 2){
+    		System.out.println("Os dias de pagamento de " + fulano.nome + " serão: ");
+    		consultarSemanal(fulano);
+    	}else if(fulano.tipodepagamento == 3){
+    		System.out.print("Os dias de pagamento de " + fulano.nome + " serão: ");
+    		consultarBiMensal(fulano);
+    	}
+    	System.out.println("---------------------------------");
+    }
+    
+    //-----------------------------------------------------------------------    
+    
 	
 	
 	public static void main(String[] args) {
@@ -480,6 +593,17 @@ public class Sistema {
 		Empregado[] undo = new Empregado[20];
 		Empregado[] trabalhadores = new Empregado[20]; //Empty vector of objects - NULL by DEFAULT
 		
+		
+		/*int[] bisemanalmente = {13, 27};  // 2 pos
+		int[] alt_bisemanalmente ={6,20}; // 2 pos
+		
+		int[] semanalmente = {6,13,20,27}; // 4 pos
+		int[] alt_semanalmente = {3,10,17,24}; // 4 pos
+		int[] alt1_semanalmente = {4,11,18,25}; // 4 pos
+		int[] alt2_semanalmente = {5,12,19,26}; // 4 pos
+		
+		int[] alt_mensalmente = {3,4,5,6,10,11,12,13,17,18,19,20,24,25,26,27,30}; // 17 pos
+		*/
 		//---------------------- INTERFACE ---------------------------
 		int comando = 1;
 		Scanner input = new Scanner(System.in);
@@ -497,7 +621,7 @@ public class Sistema {
 					+ "6- Alterar detalher de empregado\n" // feito
 					+ "7- Rodar folha de pagamento\n"
 					+ "8- Undo/Redo\n"					   // feito
-					+ "9- Agenda de pagamento\n"
+					+ "9- Agenda de pagamento\n"		   // feito
 					+ "10- Criação de novas agendas\n"
 					+ "11- Listar dos empregados\n"        // feito    
 					+ "0 - Para sair do programa\n"        // feito
@@ -566,6 +690,7 @@ public class Sistema {
 					
 				case 9:
 					System.out.println("Agenda de Pagamento");
+					consultarAgenda(trabalhadores);
 					break;
 					
 				case 10:
