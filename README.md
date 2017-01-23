@@ -18,7 +18,7 @@ FUNCIONALIDADES:
 
 6 - Alterar detalhes de um empregado - FEITO
 
-7 - Rodar folha de pagamento para hoje
+7 - Rodar folha de pagamento para hoje - FEITO 
 
 8 - Undo/Redo - FEITO
 
