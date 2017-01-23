@@ -36,6 +36,8 @@ public class Sistema {
 			fulano.tipodepagamento = 3;
 			fulano.diadepagamento = 13;
 		}
+		
+		fulano.taxadeservico = 0.1;
 	}
 	public static void inserirSalario(Empregado fulano){
 		
@@ -645,24 +647,298 @@ public class Sistema {
     
     //-----------------------------------------------------------------------
     
-	
+	//--------------------- Rodar Folha de Pagamento ------------------------
+    
+    public static void printPaymentMensal(Empregado fulano){
+    	
+    	int confere;
+    	String metodo1 = "cheque pelos correios.";
+    	String metodo2 = "cheque em mãos.";
+    	String metodo3 = "depósito bancário.";
+    	
+    	confere = fulano.metodopagamento;
+    	
+		System.out.print(fulano.nome + " será pago hoje o valor de R$ " + fulano.salario + " por ");
+		
+		if(confere == 1){
+			System.out.print(metodo1);
+		}else if(confere == 2){
+			System.out.print(metodo2);
+		}else if(confere == 3){
+			System.out.print(metodo3);
+		}
+		System.out.println(" ");
+    }
+    public static void printPaymentHorista(Empregado fulano){
+    	
+    	int confere;
+    	double salario, total, totalextra;
+    	
+    	String metodo1 = "cheque pelos correios.";
+    	String metodo2 = "cheque em mãos.";
+    	String metodo3 = "depósito bancário.";
+    	
+    	confere = fulano.metodopagamento;
+    	salario = fulano.salario;
+    	total = fulano.horassemana;
+    	totalextra = fulano.horasextras;
+    	
+    	total = total*salario;
+    	total = total + (totalextra*1.5*salario);
+    	if(total != 0){
+    		System.out.print(fulano.nome + " será pago hoje o valor de R$ " + total + " por ");
+    		
+    		if(confere == 1){
+    			System.out.print(metodo1);
+    		}else if(confere == 2){
+    			System.out.print(metodo2);
+    		}else if(confere == 3){
+    			System.out.print(metodo3);
+    		}
+    		System.out.println(" ");
+    	}
+
+		fulano.horasextras = 0;
+		fulano.horassemana = 0;
+    }
+    public static void printPaymentComissionado(Empregado fulano){
+    	
+    	int confere;
+    	double total, metadesalario;
+    	
+    	String metodo1 = "cheque pelos correios.";
+    	String metodo2 = "cheque em mãos.";
+    	String metodo3 = "depósito bancário.";
+    	
+    	confere = fulano.metodopagamento;
+    	
+    	metadesalario = fulano.salario/2;
+    	total = fulano.vendasacumuladas * fulano.taxadeservico;
+    	
+    	total = total+metadesalario;
+    	
+    	if(total != 0){
+    		System.out.print(fulano.nome + " será pago hoje o valor de R$ " + total + " por ");
+    		
+    		if(confere == 1){
+    			System.out.print(metodo1);
+    		}else if(confere == 2){
+    			System.out.print(metodo2);
+    		}else if(confere == 3){
+    			System.out.print(metodo3);
+    		}
+    		System.out.println(" ");
+    	}
+		
+		fulano.vendasacumuladas = 0;
+    }
+
+    public static int confere6(int confere, int dia){
+    	
+    	int pode = 0; 
+    	int aux;
+    	int[] semanalmente = {6,13,20,27}; // 4 pos
+    	
+    	for(aux=0; aux<4; aux++){
+    		if(semanalmente[aux] == dia){
+    			pode = 1;
+    		}
+    	}
+    	
+    	return pode;
+    }
+    public static int confere3(int confere, int dia){
+    	
+    	int pode = 0; 
+    	int aux;
+		int[] alt_semanalmente = {3,10,17,24}; // 4 pos
+    	
+    	for(aux=0; aux<4; aux++){
+    		if(alt_semanalmente[aux] == dia){
+    			pode = 1;
+    		}
+    	}
+    	
+    	return pode;
+    }
+    public static int confere4(int confere, int dia){
+    	
+    	int pode = 0; 
+    	int aux;
+		int[] alt1_semanalmente = {4,11,18,25}; // 4 pos
+    	
+    	for(aux=0; aux<4; aux++){
+    		if(alt1_semanalmente[aux] == dia){
+    			pode = 1;
+    		}
+    	}
+    	
+    	return pode;
+    }
+    public static int confere5(int confere, int dia){
+    	
+    	int pode = 0; 
+    	int aux;
+		int[] alt2_semanalmente = {5,12,19,26}; // 4 pos
+    	
+    	for(aux=0; aux<4; aux++){
+    		if(alt2_semanalmente[aux] == dia){
+    			pode = 1;
+    		}
+    	}
+    	
+    	return pode;
+    }
+
+    public static int conferebi13(int confere, int dia){
+    	
+    	int pode = 0; 
+    	int aux;
+		int[] bisemanalmente = {13, 27};  // 2 pos
+    	
+    	for(aux=0; aux<2; aux++){
+    		if(bisemanalmente[aux] == dia){
+    			pode = 1;
+    		}
+    	}
+    	
+    	return pode;
+    }
+    public static int conferebi6(int confere, int dia){
+    	
+    	int pode = 0; 
+    	int aux;
+		int[] alt_bisemanalmente = {6,20}; // 2 pos
+    	
+    	for(aux=0; aux<2; aux++){
+    		if(alt_bisemanalmente[aux] == dia){
+    			pode = 1;
+    		}
+    	}
+    	
+    	return pode;
+    }
+    
+    public static int confereHorista(Empregado fulano){
+    	
+    	int confere = 0;
+    	int aux;
+    	
+		int[] semanalmente = {6,13,20,27}; // 4 pos
+		int[] alt_semanalmente = {3,10,17,24}; // 4 pos
+		int[] alt1_semanalmente = {4,11,18,25}; // 4 pos
+		int[] alt2_semanalmente = {5,12,19,26}; // 4 pos
+		
+    	for(aux=0;aux<4;aux++){
+    		if(semanalmente[aux] == fulano.diadepagamento){
+    			confere = 6;
+    			break;
+    		}else if(alt_semanalmente[aux] == fulano.diadepagamento){
+    			confere = 3;
+    			break;
+    		}else if(alt1_semanalmente[aux] == fulano.diadepagamento){
+    			confere = 4;
+    			break;
+    		}else if(alt2_semanalmente[aux] == fulano.diadepagamento){
+    			confere = 5;
+    			break;
+    		}
+    	}
+    	
+    	return confere;
+    }
+    public static int confereComissionado(Empregado fulano){
+    	
+    	int confere = 0;
+    	int aux;
+		int[] bisemanalmente = {13, 27};  // 2 pos
+		int[] alt_bisemanalmente = {6,20}; // 2 pos
+		
+    	for(aux=0;aux<2;aux++){
+    		if(bisemanalmente[aux] == fulano.diadepagamento){
+    			confere = 13;
+    			break;
+    		}else if(alt_bisemanalmente[aux] == fulano.diadepagamento){
+    			confere = 6;
+    			break;
+    		}
+    	}
+ 
+    	return confere;
+    }
+    
+    public static void rodarFolhadePagamento(Empregado[] trabalhadores){
+    	
+    	Scanner input = new Scanner(System.in);
+    	int dia, aux, tipo, confere, diadepgmt;
+    	int pode = 0;
+    	Empregado fulano = new Empregado();
+    	
+
+    	System.out.print("---------------------------------\nDigite o dia para rodar a folha: ");
+    	dia = input.nextInt();
+    	System.out.println(" ");
+    	
+    	
+    	for(aux=0;aux<20;aux++){
+    		if(trabalhadores[aux] != null){
+    			fulano = trabalhadores[aux];
+    			tipo = fulano.type;
+    			
+    			if(tipo == 1){
+    				confere = fulano.diadepagamento;
+    				if(dia == confere){
+    					printPaymentMensal(fulano);
+    				}
+    			}else if(tipo == 2){
+    				confere = confereHorista(fulano);
+    				diadepgmt = fulano.diadepagamento;
+    				if(confere == diadepgmt){
+    					if(confere == 6){
+    						pode = confere6(confere,dia);
+    					}else if(confere == 3){
+    						pode = confere3(confere,dia);
+    					}else if(confere == 4){
+    						pode = confere4(confere,dia);
+    					}else{
+    						pode = confere5(confere,dia);
+    					}
+    					
+    					if(pode == 1){
+            				printPaymentHorista(fulano);
+    					}
+    					
+    				}
+    			}else{
+    				confere = confereComissionado(fulano);
+    				diadepgmt = fulano.diadepagamento;
+    				if(confere == diadepgmt){
+    					if(confere == 13){
+    						pode = conferebi13(confere,dia);
+    					}else if(confere == 6){
+    						pode = conferebi6(confere,dia);
+    					}
+    					
+    					if(pode == 1){
+            				printPaymentComissionado(fulano);	
+    					}
+    				}
+    			}	
+    		}
+    	}
+   
+    	System.out.println("\n---------------------------------");
+    }
+    
+    //-----------------------------------------------------------------------
+    
+    
 	public static void main(String[] args) {
 		
 		Empregado[] redo = new Empregado[20];
 		Empregado[] undo = new Empregado[20];
 		Empregado[] trabalhadores = new Empregado[20]; //Empty vector of objects - NULL by DEFAULT
 		
-		
-		/*int[] bisemanalmente = {13, 27};  // 2 pos
-		int[] alt_bisemanalmente ={6,20}; // 2 pos
-		
-		int[] semanalmente = {6,13,20,27}; // 4 pos
-		int[] alt_semanalmente = {3,10,17,24}; // 4 pos
-		int[] alt1_semanalmente = {4,11,18,25}; // 4 pos
-		int[] alt2_semanalmente = {5,12,19,26}; // 4 pos
-		
-		int[] alt_mensalmente = {3,4,5,6,10,11,12,13,17,18,19,20,24,25,26,27,30}; // 17 pos
-		*/
 		//---------------------- INTERFACE ---------------------------
 		int comando = 1;
 		Scanner input = new Scanner(System.in);
@@ -739,6 +1015,7 @@ public class Sistema {
 				case 7:
 					System.out.println("Rodar folha de pagamento");
 					saveUndoRedo(trabalhadores,undo);
+					rodarFolhadePagamento(trabalhadores);
 					saveUndoRedo(trabalhadores,redo);
 					break;
 					
